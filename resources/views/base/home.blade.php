@@ -14,7 +14,7 @@
                 </h1>
             </div>
             <div class="col-sd-12">
-                I'd like to test some things with you <3
+               Work still in progress
 
             </div>
         </div>
