@@ -28,6 +28,7 @@ class AdController extends Controller
     public function create()
     {
         $categories = DB::table('category')->get();
+
         return view('ad.new_ad', ['categories' => $categories]);
     }
 
@@ -46,6 +47,8 @@ class AdController extends Controller
                     'type' => $request->type,
                     'message'=>$request->message,
                     'category_id'=>$request->category,
+                    'price'=>$request->price,
+                    'precision'=>$request->precision,
                     'user_id'=>Auth::user()->id]
             );
         }catch(\Exception $e){
@@ -64,7 +67,9 @@ class AdController extends Controller
     public function show($id)
     {
         $ad = DB::table('ad')->where('id', $id)->first();
-        return view('ad.ad_details', ['ad' => $ad]);
+        $user = DB::table('users')->where('id', $ad->user_id)->first();
+        $category = DB::table('category')->where('id_category', $ad->category_id)->first();
+        return view('ad.ad_details', ['ad' => $ad, 'user'=>$user, 'category'=>$category]);
     }
 
     /**

@@ -4,6 +4,7 @@
 @endsection
 
 @section('content')
+
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -11,7 +12,7 @@
                     <div class="card-header">New ad</div>
                     <div class="card-block">
                         <div class="container">
-                            <form class="form-horizontal offset-md-2" role="form" method="POST" action="{{ url('/new_ad') }}">
+                            <form class="form-horizontal offset-md-2" role="form" method="POST" action="{{ url('/ad') }}">
                                 {{ csrf_field() }}
 
                                 <div class="form-group row">
@@ -45,6 +46,23 @@
                                         <select name="type" id="type">
                                             <option value="1">Service</option>
                                             <option value="2">Object</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="price" class="col-md-4 control-label">Price</label>
+
+                                    <div class="col-md-3">
+                                        <input id="price" type="text" class="form-control" name="price"
+                                               placeholder="Price €" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select name="precision" id="precision">
+                                            <option value="Per hour">Per hour</option>
+                                            <option value="All">All</option>
+                                            <option value="Each">Each</option>
 
                                         </select>
                                     </div>
