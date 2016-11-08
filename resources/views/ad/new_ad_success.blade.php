@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Home
+   Success
 @endsection
 
 @section('content')

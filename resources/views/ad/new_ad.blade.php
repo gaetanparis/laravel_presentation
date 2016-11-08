@@ -12,7 +12,7 @@
                     <div class="card-header">New ad</div>
                     <div class="card-block">
                         <div class="container">
-                            <form class="form-horizontal offset-md-2" role="form" method="POST" action="{{ url('/ad') }}">
+                            <form class="form-horizontal offset-md-2" role="form" method="POST" action="{{ url('/ad') }}" enctype="multipart/form-data">
                                 {{ csrf_field() }}
 
                                 <div class="form-group row">
@@ -73,6 +73,26 @@
 
                                     <div class="col-md-6">
                                         <textarea name="message"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="photo" class="col-md-4 control-label">Photo</label>
+
+                                    <div class="col-md-6">
+                                        <label class="custom-file">
+                                            <input type="file" name="photo" id="photo" class="custom-file-input">
+                                            <span class="custom-file-control"></span>
+                                        </label>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="description" class="col-md-4 control-label">Description (photo)</label>
+
+                                    <div class="col-md-6">
+                                        <input id="description" type="text" class="form-control" name="description"
+                                               placeholder="Description" required>
                                     </div>
                                 </div>
 

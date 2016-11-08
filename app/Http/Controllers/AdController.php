@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Ad;
+use App\Category;
+use App\Photo;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Input\Input;
 
 class AdController extends Controller
 {
@@ -15,7 +20,10 @@ class AdController extends Controller
      */
     public function index()
     {
+        $ads = Ad::where("user_id", Auth::user()->id)->get();
 
+
+        return view('ad.my_ads', ['ads' => $ads]);
 
 
     }
@@ -27,7 +35,7 @@ class AdController extends Controller
      */
     public function create()
     {
-        $categories = DB::table('category')->get();
+        $categories = Category::where("isActive", 1)->orderBy('name','asc')->get();
 
         return view('ad.new_ad', ['categories' => $categories]);
     }
@@ -42,16 +50,34 @@ class AdController extends Controller
     {
 
         try {
-            DB::table('ad')->insert(
-                ['title' => $request->title,
-                    'type' => $request->type,
-                    'message'=>$request->message,
-                    'category_id'=>$request->category,
-                    'price'=>$request->price,
-                    'precision'=>$request->precision,
-                    'user_id'=>Auth::user()->id]
+
+            $imageName = date("Ymdhis").Auth::user()->id . '.' .$request->file('photo')->getClientOriginalExtension();
+
+            $request->file('photo')->move(
+                base_path() . '/public/medias/', $imageName
             );
+
+            $ad = new Ad();
+            $ad->title          =  $request->title;
+            $ad->type           =  $request->type;
+            $ad->message        =  $request->message;
+            $ad->category_id    =  $request->category;
+            $ad->price          =  $request->price;
+            $ad->precision      =  $request->precision;
+            $ad->user_id        =  Auth::user()->id;
+            $ad->save();
+
+            $last_id = $ad->id;
+
+            $photo = new Photo();
+            $photo->ad_id       = $last_id;
+            $photo->photo       = $imageName;
+            $photo->description =  $request->description;
+            $photo->save();
+
+
         }catch(\Exception $e){
+            var_dump($e);
             return view('ad.new_ad_error');
         }
 
@@ -66,9 +92,9 @@ class AdController extends Controller
      */
     public function show($id)
     {
-        $ad = DB::table('ad')->where('id', $id)->first();
-        $user = DB::table('users')->where('id', $ad->user_id)->first();
-        $category = DB::table('category')->where('id_category', $ad->category_id)->first();
+        $ad = Ad::where('id',$id)->first();
+        $user = User::where('id', $ad->user_id)->first();
+        $category = Category::where('id_category', $ad->category_id)->first();
         return view('ad.ad_details', ['ad' => $ad, 'user'=>$user, 'category'=>$category]);
     }
 

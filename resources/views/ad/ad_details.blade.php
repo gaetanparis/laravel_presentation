@@ -17,7 +17,7 @@
             </div>
 
             <div class="col-sd-6">
-                <img src="{{asset('medias/ad_img/maison.png')}}" class="img-fluid" alt="Responsive image">
+                {{Html::image('medias/13959945756.jpg')}}
 
                 <p style="color: grey;font-size: 11px">Created : {{ $ad->created_at }} by {{$user->name}}
             </div>
