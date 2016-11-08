@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="card">
-                    <div class="card-header">Login</div>
+                    <div class="card-header">New ad</div>
                     <div class="card-block">
                         <div class="container">
                             <form class="form-horizontal offset-md-2" role="form" method="POST" action="{{ url('/new_ad') }}">
