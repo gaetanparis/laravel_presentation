@@ -34,11 +34,4 @@ class HomeController extends Controller
         return redirect('/');
     }
 
-    public function insert()
-    {
-
-    }
-
-
-
 }
