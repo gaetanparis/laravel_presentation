@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-class AdController extends Controller
+class ProfilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +13,7 @@ class AdController extends Controller
      */
     public function index()
     {
-
-
-
+        return view("auth.profil.profil");
     }
 
     /**
@@ -27,8 +23,7 @@ class AdController extends Controller
      */
     public function create()
     {
-        $categories = DB::table('category')->get();
-        return view('ad.new_ad', ['categories' => $categories]);
+        //
     }
 
     /**
@@ -39,20 +34,7 @@ class AdController extends Controller
      */
     public function store(Request $request)
     {
-
-        try {
-            DB::table('ad')->insert(
-                ['title' => $request->title,
-                    'type' => $request->type,
-                    'message'=>$request->message,
-                    'category_id'=>$request->category,
-                    'user_id'=>Auth::user()->id]
-            );
-        }catch(\Exception $e){
-            return view('ad.new_ad_error');
-        }
-
-        return view('ad.new_ad_success');
+        //
     }
 
     /**
@@ -63,8 +45,7 @@ class AdController extends Controller
      */
     public function show($id)
     {
-        $ad = DB::table('ad')->where('id', $id)->first();
-        return view('ad.ad_details', ['ad' => $ad]);
+        //
     }
 
     /**
@@ -100,9 +81,4 @@ class AdController extends Controller
     {
         //
     }
-
-
-
-
-
 }

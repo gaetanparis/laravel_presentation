@@ -16,5 +16,10 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
-Route::get('logout', 'HomeController@logout');
-Route::resource('new_ad', 'AdController');
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::resource('/profil', 'ProfilController@index');
+    Route::resource('ad', 'AdController');
+    Route::get('logout', 'HomeController@logout');
+});

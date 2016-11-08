@@ -58,9 +58,12 @@
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a  class="nav-link" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                        </ul>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="responsiveNavbarDropdown">
+                            <a  class="dropdown-item" href="{{ url('/profil') }}"><i class="fa fa-btn fa-user "></i>Profil</a>
+                            <a  class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+
+                        </div>
+
                     </li>
                 @endif
             </ul>
