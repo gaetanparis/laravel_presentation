@@ -21,7 +21,6 @@
                     @endif
 
                 </div>
-
             </div>
             <div class="col-xs-4 float-xs-right">
                 <div class="card ">
