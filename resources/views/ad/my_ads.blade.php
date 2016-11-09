@@ -36,6 +36,7 @@
                         <div class="card-block">
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="{{ url('ad/'.$ad->id) }}" class="card-link">See</a>
+                            <a href="{{ url('ad/'.$ad->id.'/edit') }}" class="card-link">Edit</a>
 
                         </div>
                     </div>

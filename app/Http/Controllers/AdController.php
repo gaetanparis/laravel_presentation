@@ -51,29 +51,15 @@ class AdController extends Controller
 
         try {
 
-            $imageName = date("Ymdhis").Auth::user()->id . '.' .$request->file('photo')->getClientOriginalExtension();
 
-            $request->file('photo')->move(
-                base_path() . '/public/medias/', $imageName
-            );
-
-            $ad = new Ad();
+            $ad = Ad::find($request->ad_id);
             $ad->title          =  $request->title;
             $ad->type           =  $request->type;
             $ad->message        =  $request->message;
             $ad->category_id    =  $request->category;
             $ad->price          =  $request->price;
             $ad->precision      =  $request->precision;
-            $ad->user_id        =  Auth::user()->id;
             $ad->save();
-
-            $last_id = $ad->id;
-
-            $photo = new Photo();
-            $photo->ad_id       = $last_id;
-            $photo->photo       = $imageName;
-            $photo->description =  $request->description;
-            $photo->save();
 
 
         }catch(\Exception $e){
@@ -106,7 +92,13 @@ class AdController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $ad = Ad::where('id',$id)->first();
+        $categories = Category::where("isActive", 1)->orderBy('name','asc')->get();
+        $photos = Photo::where("ad_id", $id)->get();
+
+        return view('ad.edit_ad', ['ad' => $ad, 'categories'=>$categories, "photos"=>$photos]);
+
     }
 
     /**
@@ -130,6 +122,50 @@ class AdController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit_ad(Request $request)
+    {
+
+        try {
+            $imageName = date("Ymdhis").Auth::user()->id . '.' .$request->file('photo')->getClientOriginalExtension();
+            $request->file('photo')->move(
+                base_path() . '/public/medias/', $imageName
+            );
+
+            $ad = new Ad();
+            $ad->title          =  $request->title;
+            $ad->type           =  $request->type;
+            $ad->message        =  $request->message;
+            $ad->category_id    =  $request->category;
+            $ad->price          =  $request->price;
+            $ad->precision      =  $request->precision;
+            $ad->user_id        =  Auth::user()->id;
+            $ad->save();
+
+            $last_id = $ad->id;
+
+            $photo = new Photo();
+            $photo->ad_id       = $last_id;
+            $photo->photo       = $imageName;
+            $photo->description =  $request->description;
+            $photo->save();
+
+
+        }catch(\Exception $e){
+            var_dump($e);
+            return view('ad.new_ad_error');
+        }
+
+        return view('ad.new_ad_success');
+
     }
 
 
