@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Gaëtan Paris | @yield('title') </title>
 
         <!-- Fonts -->
@@ -25,6 +26,7 @@
             .fa-btn {
                 margin-right: 6px;
             }
+
         </style>
     </head>
     <body id="app-layout" style="padding-top: 100px; background: #fafafa;">

@@ -1,4 +1,8 @@
 @extends('layouts.app')
+
+@section('plugin_js')
+    <script src="{{ asset('js/custom/ad_details_custom.js') }}"></script>
+@endsection
 @section('title')
     Ad details
 @endsection
@@ -7,6 +11,9 @@
     <div class="container" >
         <!-- Marketing Icons Section -->
         <div class="row" >
+            <input type="hidden" id="ad_id" value="{{ $ad->id }}">
+            <input type="hidden" id="user_id" value="{{ \Illuminate\Support\Facades\Auth::user()->id }}">
+            <input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
             <div class="col-xs-8 text-xs-center">
                 <div class="col-lg-12">
                     <h1 class="page-header">
@@ -28,15 +35,21 @@
                         Manage ad
                     </div>
                     <div class="card-block">
-                        <div class="col-xs-4 text-xs-center">
-                           <a href="" style="color: black;"> <i class="fa fa-star fa-2x" style="color: greenyellow"></i><br>Favoris</a>
+                        <div class="col-xs-6 text-xs-center">
+
+                           <a href="{{ url('favourite') }}" style="color: black;" id="select-favourite"> <i class="fa fa-star fa-2x" style="color: greenyellow"></i><br>Fav</a>
                         </div>
-                        <div class="col-xs-4 text-xs-center">
-                            <a href="" style="color: black;"> <i class="fa fa-edit fa-2x" style="color: green"></i><br>Edit</a>
-                        </div>
-                        <div class="col-xs-4 text-xs-center">
+                        <div class="col-xs-6 text-xs-center">
                             <a href="" style="color: black;"> <i class="fa fa-warning fa-2x" style="color: red"></i><br>Report</a>
                         </div>
+                        @if($ad->user_id == \Illuminate\Support\Facades\Auth::user()->id)
+                            <div class="col-xs-6 text-xs-center">
+                                <a href="" style="color: black;"> <i class="fa fa-edit fa-2x" style="color: green"></i><br>Edit</a>
+                            </div>
+                            <div class="col-xs-6 text-xs-center">
+                                <a href="" style="color: black;"> <i class="fa fa-trash fa-2x" ></i><br>Delete</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

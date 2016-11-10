@@ -17,9 +17,11 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 
+
 Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/profil', 'ProfilController@index');
     Route::resource('ad', 'AdController');
+    Route::resource('favourite', 'FavouriteController');
     Route::get('logout', 'HomeController@logout');
 });

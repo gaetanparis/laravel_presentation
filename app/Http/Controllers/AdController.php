@@ -50,8 +50,6 @@ class AdController extends Controller
     {
 
         try {
-
-
             $ad = Ad::find($request->ad_id);
             $ad->title          =  $request->title;
             $ad->type           =  $request->type;
@@ -60,8 +58,6 @@ class AdController extends Controller
             $ad->price          =  $request->price;
             $ad->precision      =  $request->precision;
             $ad->save();
-
-
         }catch(\Exception $e){
             var_dump($e);
             return view('ad.new_ad_error');
